@@ -1,0 +1,12 @@
+.link {
+  text-decoration: none;
+  /* border: 1px blue solid; */
+  border-radius: 10px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.active {
+  color: blue;
+  background-color: wheat;
+}
