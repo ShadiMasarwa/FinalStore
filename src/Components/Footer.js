@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <div
-      className="container-fluid bg-dark text-white d-flex justify-content-center align-items-center mt-5"
+      className="container-fluid bg-dark text-white d-flex justify-content-center align-items-center mt-5 "
       style={{ height: 100 }}
     >
       All Rights Reserved -{" "}

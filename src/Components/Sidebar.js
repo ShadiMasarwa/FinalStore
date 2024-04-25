@@ -5,12 +5,12 @@ import Cart from "./Cart";
 import Fav from "./Fav";
 
 const Sidebar = () => {
-  const { whatToShowInSidebar } = useContext(GlobalContext);
+  const { whatToShowInSidebar, setShowSidebar } = useContext(GlobalContext);
 
   return (
     <div
       className="position-absolute top-0 end-0 z-2 "
-      style={{ width: "15vw" }}
+      style={{ width: "15vw", height: "20vh" }}
     >
       <div className="row">
         <div className="bg-secondary">
@@ -24,6 +24,17 @@ const Sidebar = () => {
               ) : (
                 <p style={{ fontSize: 30 }}>❤️</p>
               )}
+              <button
+                style={{
+                  background: "none",
+                  color: "white",
+                  border: "none",
+                  marginRight: "5px",
+                }}
+                onClick={() => setShowSidebar(false)}
+              >
+                ❌
+              </button>
             </div>
             {whatToShowInSidebar === "cart" ? <Cart /> : <Fav />}
           </div>

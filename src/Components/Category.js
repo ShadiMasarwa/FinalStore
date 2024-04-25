@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./product.css";
 
 const Category = ({ cat, index }) => {
   return (
@@ -13,7 +14,7 @@ const Category = ({ cat, index }) => {
         <div className="card w-20 m-2">
           <img
             src={cat.thumbnail}
-            className="card-img-top p-2 "
+            className="card-img-top p-2 productImageResize "
             alt={cat.name}
             style={{ height: 200, borderRadius: 20 }}
           />

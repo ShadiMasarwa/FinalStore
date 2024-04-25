@@ -1,17 +1,33 @@
-import React from "react";
 import { useContext } from "react";
 import GlobalContext from "../Hooks/GlobalContext";
 import Sidebar from "../Components/Sidebar";
 import { NavLink } from "react-router-dom";
 import Layout from "../Components/Layout";
+import Quantity from "../Components/Quantity";
+import Modal from "../Components/Modal";
 
 const Cart = () => {
-  const { itemsInCart, storeProducts, showSidebar, RemoveFromCart } =
-    useContext(GlobalContext);
+  const {
+    itemsInCart,
+    setItemsInCart,
+    storeProducts,
+    showSidebar,
+    RemoveFromCart,
+    loggedIn,
+  } = useContext(GlobalContext);
+
+  const handleQuantityChange = (id, value) => {
+    const temp = itemsInCart.map((el) =>
+      el.id === id ? { ...el, Qty: value } : el
+    );
+    setItemsInCart([...temp]);
+  };
+
   let total = 0;
   let orgTotal = 0;
   return (
     <div>
+      <Modal />
       <Layout>
         <div className="position-relative" style={{ minHeight: "72vh" }}>
           <div className="container">
@@ -27,20 +43,22 @@ const Cart = () => {
                       <th>Image</th>
                       <th>Name</th>
                       <th>Description</th>
+                      <th style={{ textAlign: "center" }}>QTY</th>
                       <th>Price</th>
                       <th>Remove</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {itemsInCart.map((id, index) => {
-                      const product = storeProducts.filter(
-                        (el) => el.id === id
-                      )[0];
+                    {itemsInCart.map((Item) => {
+                      const product = storeProducts.find(
+                        (el) => el.id === Item.id
+                      );
 
                       total +=
-                        product.price -
-                        (product.discountPercentage * product.price) / 100;
-                      orgTotal += product.price;
+                        (product.price -
+                          (product.discountPercentage * product.price) / 100) *
+                        Item.Qty;
+                      orgTotal += product.price * Item.Qty;
                       return (
                         <tr>
                           <td className="">
@@ -63,13 +81,24 @@ const Cart = () => {
                           <td className="align-middle">
                             {product.description}
                           </td>
-                          <td className="align-middle">
+                          <td className="align-middle text-center">
+                            <Quantity
+                              onQuantityChange={handleQuantityChange}
+                              id={product.id}
+                              Qty={Item.Qty}
+                            />
+                          </td>
+                          <td
+                            className="align-middle"
+                            style={{ width: "150px" }}
+                          >
                             <b>
                               {(
-                                parseFloat(product.price) -
-                                (parseFloat(product.discountPercentage) *
-                                  parseFloat(product.price)) /
-                                  100
+                                (parseFloat(product.price) -
+                                  (parseFloat(product.discountPercentage) *
+                                    parseFloat(product.price)) /
+                                    100) *
+                                Item.Qty
                               ).toFixed(2)}{" "}
                               ILS
                             </b>
@@ -88,11 +117,8 @@ const Cart = () => {
                     })}
                   </tbody>
                   <tfoot>
-                    <tr>
-                      <td
-                        className="align-middle text-end table-info"
-                        colSpan={5}
-                      >
+                    <tr class="align-middle text-end table-info">
+                      <td className="" colSpan={6}>
                         <h4 className="">Total: {total.toFixed(2)} ILS</h4>
                         <h6>
                           {"("}You Save{" "}
@@ -108,8 +134,13 @@ const Cart = () => {
               )}
               <div className="d-flex justify-content-end">
                 {itemsInCart.length > 0 ? (
-                  <button className="btn btn-warning">
-                    Proceed For Payment
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#MyModal"
+                  >
+                    Procced To Payment
                   </button>
                 ) : null}
               </div>

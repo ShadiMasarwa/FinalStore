@@ -35,8 +35,10 @@ const Cart = () => {
         )}
       </div>
       <div className="row">
-        {itemsInCart.map((id, index) => {
-          const product = storeProducts.filter((el) => el.id === id)[0];
+        {itemsInCart.map((itemInCart, index) => {
+          const product = storeProducts.filter(
+            (el) => el.id === itemInCart.id
+          )[0];
           return <Product {...product} sender="cart" key={index} />;
         })}
       </div>

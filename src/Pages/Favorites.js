@@ -28,9 +28,9 @@ const Favorites = () => {
                   );
                 })
               )}
+              {showSidebar ? <Sidebar /> : ""}
             </div>
           </div>
-          {showSidebar ? <Sidebar /> : ""}
         </div>
       </Layout>
     </div>

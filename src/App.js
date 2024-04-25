@@ -23,7 +23,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [randomProducts, setRandomProducts] = useState([]);
 
-  // Local Storage for Cart and Favorite Items
+  // Local Storage for Cart and Favorite Items & Login
   const [itemsInCart, setItemsInCart] = useState(
     JSON.parse(localStorage.getItem("cartItems"))
       ? JSON.parse(localStorage.getItem("cartItems"))
@@ -34,6 +34,13 @@ function App() {
       ? JSON.parse(localStorage.getItem("favItems"))
       : []
   );
+
+  const [loggedIn, setLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("loggedin"))
+      ? JSON.parse(localStorage.getItem("loggedin"))
+      : false
+  );
+
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(itemsInCart));
   }, [itemsInCart]);
@@ -41,25 +48,31 @@ function App() {
   useEffect(() => {
     localStorage.setItem("favItems", JSON.stringify(itemsInFav));
   }, [itemsInFav]);
+
+  useEffect(() => {
+    localStorage.setItem("loggedin", JSON.stringify(loggedIn));
+  }, [loggedIn]);
   //------------------------------------------------------------------
 
   //  Functions for adding and deleting items to and from cart and favorites
-  const addToCart = (id) => setItemsInCart([...itemsInCart, id]);
-  const addToFav = (id) => setItemsInFav([...itemsInFav, id]);
+  const addToCart = (id) => {
+    !itemsInCart.includes(id) &&
+      setItemsInCart([...itemsInCart, { id, Qty: 1 }]);
+  };
+  const addToFav = (id) => {
+    !itemsInFav.includes(id) && setItemsInFav([...itemsInFav, id]);
+  };
   const RemoveFromCart = (id) =>
-    setItemsInCart(itemsInCart.filter((el) => el !== id));
+    setItemsInCart(itemsInCart.filter((el) => el.id !== id));
   const RemoveFromFav = (id) =>
     setItemsInFav(itemsInFav.filter((el) => el !== id));
   //-------------------------------------------------------------------
 
+  //Read Products data to storeProducts array
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("https://dummyjson.com/products?limit=1000");
-      const products = await response.json();
-      setStoreProducts(products.products);
-    };
-
-    fetchData();
+    fetch("https://dummyjson.com/products?limit=1000")
+      .then((res) => res.json())
+      .then((data) => setStoreProducts(data.products));
   }, []);
 
   //Fill Carousel arrays
@@ -108,11 +121,14 @@ function App() {
           whatToShowInSidebar,
           setWhatToShowInSidebar,
           itemsInCart,
+          setItemsInCart,
           itemsInFav,
           RemoveFromCart,
           RemoveFromFav,
           categories,
           randomProducts,
+          loggedIn,
+          setLoggedIn,
         }}
       >
         <BrowserRouter>

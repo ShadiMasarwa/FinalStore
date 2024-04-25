@@ -2,6 +2,8 @@ import React from "react";
 import GlobalContext from "../Hooks/GlobalContext";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import "./product.css";
+import badge from "../images/sale-badge-transperant.webp";
 
 const Product = ({
   id,
@@ -24,19 +26,31 @@ const Product = ({
     <div
       className={sender === "main" ? "col-xl-3 col-md-6 col-sm-12" : "col-12"}
     >
-      <div className="card w-20 m-2">
+      <div className="card w-20 m-2 position-relative">
         <NavLink
           to={{
             pathname: `/product/${id}`,
           }}
-          className={"text-decoration-none"}
+          className="text-decoration-none"
         >
-          <img
-            src={images[0]}
-            className="card-img-top p-2 "
-            alt={title}
-            style={{ height: 200, borderRadius: 20 }}
-          />
+          <div className="productImageResize">
+            <img
+              src={images[0]}
+              className="card-img-top p-2  "
+              alt={title}
+              style={{ height: 200, borderRadius: 20 }}
+            />
+            {discountPercentage > 0 ? (
+              <img
+                src={badge}
+                alt={id}
+                className="position-absolute"
+                style={{ right: -15, top: -15, width: "100px" }}
+              />
+            ) : (
+              ""
+            )}
+          </div>
         </NavLink>
 
         <div className="card-body text-center">
@@ -51,18 +65,22 @@ const Product = ({
             ""
           )}
           {sender === "main" ? (
-            <h6 className="card-text">
-              Price:{" "}
-              <span style={{ textDecoration: "line-through", color: "red" }}>
-                {" "}
-                {price.toFixed(2)} ILS
-              </span>
-            </h6>
+            discountPercentage > 0 ? (
+              <h6 className="card-text">
+                Price:{" "}
+                <span style={{ textDecoration: "line-through", color: "red" }}>
+                  {price.toFixed(2)} ILS
+                </span>
+              </h6>
+            ) : (
+              <br />
+            )
           ) : (
             ""
           )}
           <h5 className="card-text">
-            Sale: {(price - (discountPercentage * price) / 100).toFixed(2)} ILS
+            {discountPercentage > 0 ? <span>Sale:</span> : <span>Price:</span>}{" "}
+            {(price - (discountPercentage * price) / 100).toFixed(2)} ILS
           </h5>
           {sender === "main" ? (
             <div>
