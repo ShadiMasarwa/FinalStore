@@ -1,7 +1,5 @@
 import React from "react";
 import Product from "../Components/Product";
-import Sidebar from "../Components/Sidebar";
-
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import GlobalContext from "../Hooks/GlobalContext";
@@ -9,12 +7,12 @@ import Layout from "../Components/Layout";
 
 const Category = () => {
   const { id } = useParams();
-  const { categories, storeProducts, showSidebar } = useContext(GlobalContext);
+  const { categories, storeProducts } = useContext(GlobalContext);
 
   return (
     <div>
       <Layout>
-        <div className="d-flex flex-row position-relative">
+        <div className="d-flex flex-row ">
           <div className="container">
             <div className="row">
               {storeProducts.map((el) =>
@@ -26,7 +24,6 @@ const Category = () => {
               )}
             </div>
           </div>
-          {showSidebar ? <Sidebar /> : ""}
         </div>
       </Layout>
     </div>

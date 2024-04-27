@@ -1,8 +1,8 @@
 import React from "react";
 import GlobalContext from "../Hooks/GlobalContext";
 import { useContext } from "react";
-import Product from "./Product";
 import { NavLink } from "react-router-dom";
+import FavItem from "./FavItem";
 
 const Fav = () => {
   const { itemsInFav, storeProducts, setShowSidebar } =
@@ -10,34 +10,52 @@ const Fav = () => {
 
   return (
     <div>
-      <div className="row">
+      <div
+        className="row mb-1"
+        style={{
+          borderRadius: "5px",
+          textAlign: "center",
+          backgroundColor: "rgba(0, 94, 184, 0.9)",
+        }}
+      >
         {itemsInFav.length > 0 ? (
           <NavLink
             to={{
               pathname: `/favorites`,
             }}
-            className={"text-decoration-none bg-warning"}
+            className={"text-decoration-none "}
           >
             <button
-              className="btn btn-warning w-100"
+              className="btn text-white"
               onClick={() => setShowSidebar(false)}
             >
-              Go To Favorites Page
+              Goto Fav Page
             </button>
           </NavLink>
         ) : (
-          <button className="btn btn-danger disabled">
-            No Items In Favorites
+          <button
+            className="btn btn-warning disabled"
+            //
+          >
+            No Items In Fav
           </button>
         )}
       </div>
-
-      <div className="row">
-        {itemsInFav.map((id, index) => {
-          const product = storeProducts.filter((el) => el.id === id)[0];
-          return <Product {...product} sender="fav" key={index} />;
-        })}
-      </div>
+      {itemsInFav.map((itemInFav, index) => {
+        const product = storeProducts.filter((el) => el.id === itemInFav)[0];
+        return (
+          <div
+            className="row mb-1 p-2"
+            style={{
+              backgroundColor: "rgba(0, 94, 184, 0.9)",
+              borderRadius: "5px",
+            }}
+            key={index}
+          >
+            <FavItem {...product} sender="fav" key={index} />
+          </div>
+        );
+      })}
     </div>
   );
 };

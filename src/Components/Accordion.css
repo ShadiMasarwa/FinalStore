@@ -1,0 +1,11 @@
+.header {
+  height: 50px;
+  background: linear-gradient(
+    0deg,
+    rgba(97, 222, 237, 1) 0%,
+    rgba(246, 255, 252, 1) 51%,
+    rgba(97, 222, 237, 1) 100%
+  );
+  border: none;
+  margin: 5px 0px;
+}

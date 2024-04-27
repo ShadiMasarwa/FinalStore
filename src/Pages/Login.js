@@ -1,20 +1,16 @@
 import React from "react";
-import "./Login.css";
 import GlobalContext from "../Hooks/GlobalContext";
 import { useContext } from "react";
-import Sidebar from "../Components/Sidebar";
 import Layout from "../Components/Layout";
 
 const Login = () => {
-  const { showSidebar, loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { loggedIn, setLoggedIn } = useContext(GlobalContext);
 
   return (
     <div>
       <Layout>
         <div
-          className={`position-relative container ${
-            !loggedIn ? "w-25 mt-5" : ""
-          }`}
+          className={`container ${!loggedIn ? "w-25 mt-5" : ""}`}
           style={{ minHeight: "73vh" }}
         >
           {!loggedIn ? (
@@ -27,7 +23,7 @@ const Login = () => {
             >
               <h3>Log In Form</h3>
               <div className="my-3">
-                <label for="email" className="form-label">
+                <label htmlFor="email" className="form-label">
                   <strong>Email address</strong>
                 </label>
                 <input
@@ -41,7 +37,7 @@ const Login = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <label for="password" className="form-label">
+                <label htmlFor="password" className="form-label">
                   <strong>Password</strong>
                 </label>
                 <input type="password" className="form-control" id="password" />
@@ -77,7 +73,6 @@ const Login = () => {
               </button>
             </div>
           )}
-          {showSidebar ? <Sidebar /> : ""}
         </div>
       </Layout>
     </div>

@@ -56,7 +56,7 @@ function App() {
 
   //  Functions for adding and deleting items to and from cart and favorites
   const addToCart = (id) => {
-    !itemsInCart.includes(id) &&
+    !itemsInCart.some((el) => el.id === id) &&
       setItemsInCart([...itemsInCart, { id, Qty: 1 }]);
   };
   const addToFav = (id) => {

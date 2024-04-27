@@ -1,51 +1,47 @@
 import React from "react";
 import logo from "../images/logo.png";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 import { useContext } from "react";
 import GlobalContext from "../Hooks/GlobalContext";
+import Icons from "./Icons";
 
 const Header = () => {
   const {
     setWhatToShowInSidebar,
-    whatToShowInSidebar,
     setShowSidebar,
+    showSidebar,
     itemsInCart,
     itemsInFav,
   } = useContext(GlobalContext);
 
-  const btnClicked = (btn) => {
-    setWhatToShowInSidebar(btn);
-    switch (btn) {
-      case "":
-        setShowSidebar(false);
-        break;
-      default:
-        setShowSidebar(true);
-    }
-  };
-
   return (
-    <div className="container-fluid bg-warning p-4 mb-1 d-flex align-items-center justify-content-between sticky-top">
+    <div className="sticky-top container-fluid bg-warning p-4 mb-1 d-flex align-items-center justify-content-between ">
       <img src={logo} style={{ width: 100 }} alt="Logo" />
       <Navbar />
       <div>
         <button
           className="btn btn-light"
-          onClick={() =>
-            whatToShowInSidebar === "cart" ? btnClicked("") : btnClicked("cart")
-          }
+          onClick={() => {
+            setShowSidebar(true);
+            setWhatToShowInSidebar("cart");
+          }}
         >
-          🛒 <span className="badge bg-secondary">{itemsInCart.length}</span>
+          <Icons icon={"cart"} />{" "}
+          <span className="badge bg-secondary">{itemsInCart.length}</span>
         </button>{" "}
         <button
           className="btn btn-light"
-          onClick={() =>
-            whatToShowInSidebar === "fav" ? btnClicked("") : btnClicked("fav")
-          }
+          onClick={() => {
+            setShowSidebar(true);
+            setWhatToShowInSidebar("fav");
+          }}
         >
-          ❤️ <span className="badge bg-secondary">{itemsInFav.length}</span>
+          <Icons icon={"fav"} />{" "}
+          <span className="badge bg-secondary">{itemsInFav.length}</span>
         </button>
       </div>
+      {showSidebar && <Sidebar />}
     </div>
   );
 };

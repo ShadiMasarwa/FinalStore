@@ -24,32 +24,57 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
               <li className="nav-item ">
-                <NavLink to="/" className="link">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive ? "link selected" : "link"
+                  }
+                >
                   Home
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/allproducts" className="link">
+                <NavLink
+                  to="/allproducts"
+                  className={({ isActive }) =>
+                    isActive ? "link selected" : "link"
+                  }
+                >
                   All Products
                 </NavLink>
               </li>
               <li className="nav-item">
                 {
-                  <NavLink to="/categories" className="link">
+                  <NavLink
+                    to="/categories"
+                    className={({ isActive }) =>
+                      isActive ? "link selected" : "link"
+                    }
+                  >
                     Categories
                   </NavLink>
                 }
               </li>
               <li className="nav-item">
                 {
-                  <NavLink to="/about" className="link">
+                  <NavLink
+                    to="/about"
+                    className={({ isActive }) =>
+                      isActive ? "link selected" : "link"
+                    }
+                  >
                     About Us
                   </NavLink>
                 }
               </li>
               <li className="nav-item">
                 {
-                  <NavLink to="/rules" className="link">
+                  <NavLink
+                    to="/rules"
+                    className={({ isActive }) =>
+                      isActive ? "link selected" : "link"
+                    }
+                  >
                     Rules & Conditions
                   </NavLink>
                 }
@@ -58,7 +83,12 @@ const Navbar = () => {
               <li className="nav-item me-3">|</li>
               <li className="nav-item">
                 {
-                  <NavLink to="/cart" className="link">
+                  <NavLink
+                    to="/cart"
+                    className={({ isActive }) =>
+                      isActive ? "link selected" : "link"
+                    }
+                  >
                     Check Out
                   </NavLink>
                 }
@@ -66,7 +96,12 @@ const Navbar = () => {
               <li className="nav-item me-3">|</li>
               <li className="nav-item">
                 {
-                  <NavLink to="/login" className="link">
+                  <NavLink
+                    to="/login"
+                    className={({ isActive }) =>
+                      isActive ? "link selected" : "link"
+                    }
+                  >
                     {loggedIn ? "Logout" : "Login"}
                   </NavLink>
                 }

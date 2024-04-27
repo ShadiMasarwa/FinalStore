@@ -1,8 +1,8 @@
 import React from "react";
 import GlobalContext from "../Hooks/GlobalContext";
 import { useContext } from "react";
-import Product from "./Product";
 import { NavLink } from "react-router-dom";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   const { itemsInCart, storeProducts, setShowSidebar } =
@@ -10,38 +10,53 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="row">
+      <div
+        className="row mb-1"
+        style={{
+          borderRadius: "5px",
+          textAlign: "center",
+          backgroundColor: "rgba(0, 94, 184, 0.9)",
+        }}
+      >
         {itemsInCart.length > 0 ? (
           <NavLink
             to={{
               pathname: `/cart`,
             }}
-            className={"text-decoration-none bg-success"}
+            className={"text-decoration-none "}
           >
             <button
-              className="btn btn-success w-100"
+              className="btn text-white"
               onClick={() => setShowSidebar(false)}
             >
-              Goto Check Out Page
+              Goto Check Out
             </button>
           </NavLink>
         ) : (
           <button
-            className="btn btn-danger disabled"
+            className="btn btn-warning disabled"
             //
           >
             No Items In Cart
           </button>
         )}
       </div>
-      <div className="row">
-        {itemsInCart.map((itemInCart, index) => {
-          const product = storeProducts.filter(
-            (el) => el.id === itemInCart.id
-          )[0];
-          return <Product {...product} sender="cart" key={index} />;
-        })}
-      </div>
+      {itemsInCart.map((itemInCart, index) => {
+        const product = storeProducts.filter(
+          (el) => el.id === itemInCart.id
+        )[0];
+        return (
+          <div
+            className="row mb-1 p-2"
+            style={{
+              backgroundColor: "rgba(0, 94, 184, 0.9)",
+              borderRadius: "5px",
+            }}
+          >
+            <CartItem {...product} sender="cart" key={index} />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -2,24 +2,23 @@ import Carousel from "react-grid-carousel";
 import GlobalContext from "../Hooks/GlobalContext";
 import { useContext } from "react";
 import Category from "../Components/Category";
-import Sidebar from "../Components/Sidebar";
 import CarouselProduct from "../Components/CarouselProduct";
 import Layout from "../Components/Layout";
 import storeImage from "../images/store.jpg";
 import Product from "../Components/Product";
 
 const Home = () => {
-  const { showSidebar, randomProducts, categories, storeProducts } =
+  const { randomProducts, categories, storeProducts } =
     useContext(GlobalContext);
 
   return (
     <div>
       <Layout>
-        <div className="w-100 position-relative">
+        <div className="w-100">
           <div className="position-relative">
             <img
               src={storeImage}
-              alt="store image"
+              alt="store"
               style={{
                 height: "300px",
                 width: "100vw",
@@ -83,10 +82,12 @@ const Home = () => {
                 </Carousel.Item>
               ))}
             </Carousel>
-            <h3 className="pt-5">Featured Products</h3>
+            <h3 className="pt-5">
+              Featured Products (15% Discount and more!!!)
+            </h3>
             <div className="row">
               {storeProducts.map((el) =>
-                el.discountPercentage > 15 ? (
+                el.discountPercentage >= 15 ? (
                   <Product {...el} sender="main" key={el.id} />
                 ) : (
                   ""
@@ -94,7 +95,6 @@ const Home = () => {
               )}
             </div>
           </div>
-          {showSidebar ? <Sidebar /> : ""}
         </div>
       </Layout>
     </div>

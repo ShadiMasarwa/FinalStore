@@ -1,20 +1,13 @@
 import { useContext } from "react";
 import GlobalContext from "../Hooks/GlobalContext";
-import Sidebar from "../Components/Sidebar";
 import { NavLink } from "react-router-dom";
 import Layout from "../Components/Layout";
 import Quantity from "../Components/Quantity";
 import Modal from "../Components/Modal";
 
 const Cart = () => {
-  const {
-    itemsInCart,
-    setItemsInCart,
-    storeProducts,
-    showSidebar,
-    RemoveFromCart,
-    loggedIn,
-  } = useContext(GlobalContext);
+  const { itemsInCart, setItemsInCart, storeProducts, RemoveFromCart } =
+    useContext(GlobalContext);
 
   const handleQuantityChange = (id, value) => {
     const temp = itemsInCart.map((el) =>
@@ -29,7 +22,7 @@ const Cart = () => {
     <div>
       <Modal />
       <Layout>
-        <div className="position-relative" style={{ minHeight: "72vh" }}>
+        <div style={{ minHeight: "72vh" }}>
           <div className="container">
             <div className="row justify-content-center">
               {itemsInCart.length === 0 ? (
@@ -117,7 +110,7 @@ const Cart = () => {
                     })}
                   </tbody>
                   <tfoot>
-                    <tr class="align-middle text-end table-info">
+                    <tr className="align-middle text-end table-info">
                       <td className="" colSpan={6}>
                         <h4 className="">Total: {total.toFixed(2)} ILS</h4>
                         <h6>
@@ -136,7 +129,7 @@ const Cart = () => {
                 {itemsInCart.length > 0 ? (
                   <button
                     type="button"
-                    class="btn btn-primary"
+                    className="btn btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#MyModal"
                   >
@@ -146,7 +139,6 @@ const Cart = () => {
               </div>
             </div>
           </div>
-          {showSidebar ? <Sidebar /> : ""}
         </div>
       </Layout>
     </div>

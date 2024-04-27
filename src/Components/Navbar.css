@@ -6,7 +6,8 @@
   margin-right: 10px;
 }
 
-.active {
-  color: blue;
+.selected {
+  color: red;
   background-color: wheat;
+  font-weight: bold;
 }

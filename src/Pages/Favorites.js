@@ -2,16 +2,15 @@ import React from "react";
 import Product from "../Components/Product";
 import { useContext } from "react";
 import GlobalContext from "../Hooks/GlobalContext";
-import Sidebar from "../Components/Sidebar";
 import Layout from "../Components/Layout";
 
 const Favorites = () => {
-  const { itemsInFav, storeProducts, showSidebar } = useContext(GlobalContext);
+  const { itemsInFav, storeProducts } = useContext(GlobalContext);
 
   return (
     <div>
       <Layout>
-        <div className="position-relative" style={{ minHeight: "72vh" }}>
+        <div style={{ minHeight: "72vh" }}>
           <div className="container">
             <div className="row justify-content-center">
               {itemsInFav.length === 0 ? (
@@ -22,13 +21,12 @@ const Favorites = () => {
                 itemsInFav.map((id, index) => {
                   const product = storeProducts.filter((el) => el.id === id)[0];
                   return (
-                    <div className="col-lg-3 col-md-6 col-sm-12">
+                    <div className="col-lg-3 col-md-6 col-sm-12" key={index}>
                       <Product {...product} sender="fav" key={index} />
                     </div>
                   );
                 })
               )}
-              {showSidebar ? <Sidebar /> : ""}
             </div>
           </div>
         </div>

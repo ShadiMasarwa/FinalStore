@@ -4,15 +4,16 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./product.css";
 import badge from "../images/sale-badge-transperant.webp";
+import Icons from "./Icons";
 
 const Product = ({
   id,
-  images,
   title,
   description,
   price,
   discountPercentage,
   sender,
+  thumbnail,
 }) => {
   const { addToCart, addToFav, RemoveFromCart, RemoveFromFav } =
     useContext(GlobalContext);
@@ -25,6 +26,7 @@ const Product = ({
   return (
     <div
       className={sender === "main" ? "col-xl-3 col-md-6 col-sm-12" : "col-12"}
+      key={id}
     >
       <div className="card w-20 m-2 position-relative">
         <NavLink
@@ -35,18 +37,34 @@ const Product = ({
         >
           <div className="productImageResize">
             <img
-              src={images[0]}
+              src={thumbnail}
               className="card-img-top p-2  "
               alt={title}
               style={{ height: 200, borderRadius: 20 }}
             />
             {discountPercentage > 0 ? (
-              <img
-                src={badge}
-                alt={id}
-                className="position-absolute"
-                style={{ right: -15, top: -15, width: "100px" }}
-              />
+              <>
+                <img
+                  src={badge}
+                  alt={id}
+                  className="position-absolute"
+                  style={{ right: -15, top: -15, width: "100px" }}
+                />
+                <h5
+                  className="position-absolute"
+                  style={{
+                    left: "10px",
+                    top: "10px",
+                    color: "white",
+                    backgroundColor: "rgba(0, 0, 218, 0.7)",
+                    padding: "5px",
+                    fontSize: "1rem",
+                    borderRadius: "5px",
+                  }}
+                >
+                  {`${discountPercentage.toFixed(0)}% disc.`}
+                </h5>
+              </>
             ) : (
               ""
             )}
@@ -87,14 +105,16 @@ const Product = ({
               <button
                 onClick={() => addToCart(id)}
                 className="btn btn-success w-25"
+                title="Add to cart"
               >
-                🛒
+                <Icons icon={"cart"} />
               </button>{" "}
               <button
                 onClick={() => addToFav(id)}
                 className="btn btn-primary w-25"
+                title="Add to Favorites"
               >
-                ❤️
+                <Icons icon={"fav"} />
               </button>
             </div>
           ) : (
@@ -106,7 +126,7 @@ const Product = ({
                 onClick={() => RemoveFromCart(id)}
                 className="btn btn-success w-50"
               >
-                ❌
+                <Icons icon={"x"} />
               </button>
             </div>
           ) : (
@@ -118,13 +138,13 @@ const Product = ({
                 onClick={() => addItemToCart(id)}
                 className="btn btn-success w-25"
               >
-                🛒
+                <Icons icon={"cart"} />
               </button>{" "}
               <button
                 onClick={() => RemoveFromFav(id)}
                 className="btn btn-primary w-25"
               >
-                ❌
+                <Icons icon={"x"} />
               </button>
             </div>
           ) : (
